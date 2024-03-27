@@ -1,0 +1,16 @@
+{
+  "name": "komunitin-stellar-poc",
+  "version": "1.0.0",
+  "repository": "https://github.com/komunitin/stellar-poc.git",
+  "author": "Esteve Badia Orive <badia.orive@gmail.com>",
+  "license": "GPL-3.0",
+  "scripts": {
+    "start": "tsx src/main.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1"
+  },
+  "dependencies": {
+    "@stellar/stellar-sdk": "^11.3.0"
+  }
+}
