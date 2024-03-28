@@ -19,7 +19,9 @@ main()
       console.error(e)
     }
   })
-
+/**
+* Run all tests.
+*/
 async function main() {
   console.log("\n-=< Sponsor >=-")
   sponsor = await createSponsorAccount()
@@ -89,7 +91,9 @@ async function testLocalPayments() {
   await adminPay(coinA.admin, user1, user2, "60", coinA.asset)
   await adminPay(coinA.admin, user2, user1, "30", coinA.asset)
 }
-
+/*
+* Perform payments between different currencies.
+*/
 async function testExternalPayments() {
   const userA1 = coinA.users[0]
   const userB1 = coinB.users[0]
@@ -100,7 +104,9 @@ async function testExternalPayments() {
   // Pay 50 COINB from UB1 so UA1 receives 5 COINA.
   await userExternalPay(userB1, coinB, userA1, coinA, "5")
 }
-
+/*
+* Create a local payment transaction signed by the user.
+*/
 async function userPay(sender: Keypair, receiver: Keypair, amount: string, asset: Asset) {
   const senderAccount = await server.loadAccount(sender.publicKey())
 
@@ -125,6 +131,9 @@ async function userPay(sender: Keypair, receiver: Keypair, amount: string, asset
 
 }
 
+/*
+* Create a local payment transaction signed by the admin account.
+*/
 async function adminPay(admin: Keypair, sender: Keypair, receiver: Keypair, amount: string, asset: Asset) {
   const adminAccount = await server.loadAccount(admin.publicKey())
 
@@ -149,13 +158,7 @@ async function adminPay(admin: Keypair, sender: Keypair, receiver: Keypair, amou
 }
 
 /**
- * 
- * @param sender Sender account
- * @param receiver Receiver account
- * @param amount Amount in receiver asset
- * @param sendAsset Sender asset
- * @param receiveAsset Receiver asset
- * @param rate The price of sendAsset in receiveAsset
+ * Create a payment transaction between users of different currencies.
  */
 async function userExternalPay(sender: Keypair, senderCoin: Currency, receiver: Keypair, receiverCoin: Currency, amount: string) {
   const senderAccount = await server.loadAccount(sender.publicKey())
