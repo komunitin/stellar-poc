@@ -77,8 +77,8 @@ async function createCurrencyModel(name: string) {
 /*
  * Performs the payments:
  *
- * USERA1 => USERA2 (100 COINA)
- * USERA2 => USERA1 (50 COINA)
+ * UA1 => UA2 (100 COINA)
+ * UA2 => UA1 (50 COINA)
  */
 async function testLocalPayments() {
   const user1 = coinA.users[0]
@@ -97,10 +97,10 @@ async function testExternalPayments() {
   const userA1 = coinA.users[0]
   const userB1 = coinB.users[0]
 
-  // Pay 2 COINA from USERA1 so USERB1 receives 20 COINB.
+  // Pay 2 COINA from UA1 so UB1 receives 20 COINB.
   await userExternalPay(userA1, coinA, userB1, coinB, "20")
 
-  // Pay 50 COINB from USERB1 so USERA1 receives 5 COINA.
+  // Pay 50 COINB from UB1 so UA1 receives 5 COINA.
   await userExternalPay(userB1, coinB, userA1, coinA, "5")
 }
 

@@ -8,9 +8,9 @@ export class Currency {
   // Stellar server (testnet)
   server: Horizon.Server
 
-  // Keypair for the currency minting account (MINTX)
-  mint: Keypair
-  // Keypair for the currency admin account (ADMINX)
+  // Keypair for the currency issuer account (ISSX)
+  issuer: Keypair
+  // Keypair for the currency admin account (ADMX)
   admin: Keypair
   // Stellar Asset for the currency (COINX)
   asset: Asset
@@ -39,13 +39,13 @@ export class Currency {
    * users of this currency.
    */
   async createLocalModel() {
-    // MINTX account
-    const mintKeys = Keypair.random()
+    // ISSX account
+    const issuerKeys = Keypair.random()
     
     // COINX asset
-    this.asset = new Asset("COIN"+this.name, mintKeys.publicKey())
+    this.asset = new Asset("COIN"+this.name, issuerKeys.publicKey())
   
-    // ADMINX account
+    // ADMX account
     const adminKeys = Keypair.random()
     const sponsorAccount = await this.server.loadAccount(this.sponsor.publicKey())
   
@@ -56,22 +56,22 @@ export class Currency {
   
     // Sponsoring wrap
     .addOperation(Operation.beginSponsoringFutureReserves({
-      sponsoredId: mintKeys.publicKey()
+      sponsoredId: issuerKeys.publicKey()
     }))
-    // Create Minting account
+    // Create issuer account
     .addOperation(Operation.createAccount({
-      destination: mintKeys.publicKey(),
+      destination: issuerKeys.publicKey(),
       startingBalance: "0"
     }))
     .addOperation(Operation.endSponsoringFutureReserves({
-      source: mintKeys.publicKey()
+      source: issuerKeys.publicKey()
     }))
   
     // Sponsoring wrap
     .addOperation(Operation.beginSponsoringFutureReserves({
       sponsoredId: adminKeys.publicKey()
     }))
-    // Create Admin account and add trustline to minting account.
+    // Create Admin account and add trustline to issuer account.
     .addOperation(Operation.createAccount({
       destination: adminKeys.publicKey(),
       startingBalance: "0"
@@ -85,9 +85,9 @@ export class Currency {
       source: adminKeys.publicKey()
     }))
   
-    // Fund the ADMINX account with some COINX
+    // Fund the ADMX account with some COINX
     .addOperation(Operation.payment({
-      source: mintKeys.publicKey(),
+      source: issuerKeys.publicKey(),
       destination: adminKeys.publicKey(),
       asset: this.asset,
       amount: "100000" // 100K
@@ -96,16 +96,16 @@ export class Currency {
     .build()
   
     // Sign the transaction with all accounts involved and submit it to testnet.
-    transaction.sign(this.sponsor, mintKeys, adminKeys)
+    transaction.sign(this.sponsor, issuerKeys, adminKeys)
   
     await this.server.submitTransaction(transaction)
   
-    this.mint = mintKeys
+    this.issuer = issuerKeys
     this.admin = adminKeys
 
-    console.log(`Created MINT${this.name} account: ${mintKeys.publicKey()}`)
-    console.log(`Created ADMIN${this.name} account: ${adminKeys.publicKey()}`)
-    console.log(`Funded ADMIN${this.name} account with 100K COIN${this.name}`)
+    console.log(`Created ISS${this.name} account: ${issuerKeys.publicKey()}`)
+    console.log(`Created ADM${this.name} account: ${adminKeys.publicKey()}`)
+    console.log(`Funded ADM${this.name} account with 100K COIN${this.name}`)
   
   }
 
@@ -129,13 +129,13 @@ export class Currency {
       destination: userKeys.publicKey(),
       startingBalance: "0",
     }))
-    // Add trustline to minting account.
+    // Add trustline to issuer account.
     .addOperation(Operation.changeTrust({
       source: userKeys.publicKey(),
       asset: this.asset,
       limit: "10000" // 10K
     }))
-    // Add ADMINX as a signer.
+    // Add ADMX as a signer.
     .addOperation(Operation.setOptions({
       source: userKeys.publicKey(),
       signer: {
@@ -143,7 +143,7 @@ export class Currency {
         weight: 2
       }
     }))
-    // Both USER and ADMINX can do payments, but only ADMINX can do high threshold (admin) operations.
+    // Both U and ADMX can do payments, but only ADMX can do high threshold (admin) operations.
     .addOperation(Operation.setOptions({
       source: userKeys.publicKey(),
       masterWeight: 1,
@@ -171,7 +171,7 @@ export class Currency {
     // Save user account.
     this.users.push(userKeys)
 
-    console.log(`Created USER${this.name}${this.users.length} account ${userKeys.publicKey()} with initial balance of 100 ${this.asset.code}`)
+    console.log(`Created U${this.name}${this.users.length} account ${userKeys.publicKey()} with initial balance of 100 ${this.asset.code}`)
   
   }
 

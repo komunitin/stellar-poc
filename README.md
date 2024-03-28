@@ -14,9 +14,9 @@ This script uses [Stellar](https://stellar.org) testnet to create the accounts a
 
 ### Community currencies
 Create 2 test community exchange currencies `A` and `B`. From now on `X` means either `A` or `C`. For each of the 2 currencies:
- - Create minting account (MINTX) and local asset (COINX).
- - Create administration account (ADMINX) and fund it with local asset (COINX)
- - Create 1 user accounts (USERX1, USERX2).
+ - Create issuer account (ISSX) and local asset (COINX).
+ - Create administration account (ADMX) and fund it with local asset (COINX)
+ - Create 1 user accounts (UX1, UX2).
 
 ### Global trading between currencies
 External accounts allow trade between different local currencies by providing liquidity and easing the setting of the exchange rate. For each of the 2 currencies:
