@@ -11,6 +11,7 @@ This script uses [Stellar](https://stellar.org) testnet to create the accounts a
  - Each community currency has its own asset.
  - Each user in the community has an account with a balance of the local asset.
  - Each community currency has an administration account that can fund and manage user accounts.
+ - All XLM base reserves and transaction fees are sponsored by a single global sponsor account.
  - Each community sets the value of its currency in terms of a global imaginary value (the HOUR).
  - Community currencies can set trade agreements with other trusted communities, limiting the trade balance.
  - Users from one community can trade with users from another community, all using only their respective local assets, through a path of previous trade agreements between currencies.
@@ -47,12 +48,14 @@ External accounts allow trade between different local currencies by providing li
 
 ## Stellar features used
 - [Accounts](https://developers.stellar.org/docs/glossary/create-account-operation/)
+- [Multi-signature](https://developers.stellar.org/docs/glossary/multisig/)
 - [Assets](https://developers.stellar.org/docs/glossary/asset/)
 - [Payments](https://developers.stellar.org/docs/glossary/payment-operation/)
 - [Passive sell offers](https://developers.stellar.org/docs/glossary/passive-offer/)
 - [Path payment](https://developers.stellar.org/docs/glossary/path-payment-operation/)
 - [Sponsored reserves](https://developers.stellar.org/docs/learn/encyclopedia/sponsored-reserves)
-- [Multi-signature](https://developers.stellar.org/docs/glossary/multisig/)
+- [Fee bump transactions](https://developers.stellar.org/docs/glossary/fee-bump-transaction/)
+
 
 ## Stellar features to be used
 There are some features that are not used in this proof of concept but will be used in the final implementation:
@@ -64,5 +67,6 @@ There are some features that are not used in this proof of concept but will be u
 ## Other comments
  - This PoC do not take in count key management considerations and functions often receive more keys than needed.
  - The model may need to be refined. For example, it could be useful to split the external account into two accounts, one for issuing and one for trading.
+ - It could also be necessary to have one sponsor account per community currency.
  - Whenever an external account buys some external HOUR asset, it should set (or increase if already set) a sell offer to sell it back to whoever owns their HOUR asset thus clearing its debt.
  
