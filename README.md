@@ -7,7 +7,13 @@ yarn start
 ```
 
 ## Model definition
-This script uses [Stellar](https://stellar.org) testnet to create the accounts and assets in the Stellar network to model a set of local community currencies and accounts. 
+This script uses [Stellar](https://stellar.org) testnet to create the accounts and assets in the Stellar network to model a set of local community currencies and accounts. This model is a representation in the Stellar network for community currencies, with the following features:
+ - Each community currency has its own asset.
+ - Each user in the community has an account with a balance of the local asset.
+ - Each community currency has an administration account that can fund and manage user accounts.
+ - Each community sets the value of its currency in terms of a global imaginary value (the HOUR).
+ - Community currencies can set trade agreements with other trusted communities, limiting the trade balance.
+ - Users from one community can trade with users from another community, all using only their respective local assets, through a path of previous trade agreements between currencies.
 
 <img src="./doc/komunitin-stellar-model.svg">
 
@@ -55,4 +61,8 @@ There are some features that are not used in this proof of concept but will be u
  - [Path discovery](https://developers.stellar.org/network/horizon/aggregations/paths/strict-receive): Find path between asssets.
 
 
+## Other comments
+ - This PoC do not take in count key management considerations and functions often receive more keys than needed.
+ - The model may need to be refined. For example, it could be useful to split the external account into two accounts, one for issuing and one for trading.
+ - Whenever an external account buys some external HOUR asset, it should set (or increase if already set) a sell offer to sell it back to whoever owns their HOUR asset thus clearing its debt.
  
