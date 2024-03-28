@@ -75,10 +75,7 @@ async function createCurrencyModel(name: string) {
 }
 
 /*
- * Performs the payments:
- *
- * UA1 => UA2 (100 COINA)
- * UA2 => UA1 (50 COINA)
+ * Performs some local payments between users of Currency A.
  */
 async function testLocalPayments() {
   const user1 = coinA.users[0]
