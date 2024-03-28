@@ -35,7 +35,6 @@ External accounts allow trade between different local currencies by providing li
 
 ### Global trade
  - Perform successful trades between users of different currencies.
-## Model definition
 
 ## Stellar features used
 - [Accounts](https://developers.stellar.org/docs/glossary/create-account-operation/)
