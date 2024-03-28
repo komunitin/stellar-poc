@@ -282,7 +282,7 @@ export class Currency {
     transaction.sign(this.sponsor, this.external)
     await this.server.submitTransaction(transaction)
 
-    console.log(`Added trustline and exchange liquidity to external account ${externalCurrencyAccountPublicKey} for ${limit} HOURs`)
+    console.log(`Added trustline and exchange liquidity from external account ${this.external.publicKey()} to external account ${externalCurrencyAccountPublicKey} for ${limit} HOURs`)
 
   }
 }

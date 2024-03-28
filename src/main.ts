@@ -21,24 +21,32 @@ main()
   })
 
 async function main() {
+  console.log("\n-=< Sponsor >=-")
   sponsor = await createSponsorAccount()
 
   // Create local currency models.
+  console.log("\n-=< Currency A >=-")
   coinA = await createCurrencyModel("A")
+  console.log("\n-=< Currency B >=-")
   coinB = await createCurrencyModel("B")
 
   // Perform some payments between users of the same currency.
+  console.log("\n-=< Test local payments >=-")
   await testLocalPayments()
 
   // Create external currency models. The price of COINA is 1 HOUR, COINB is 1/10 HOUR
-  await coinA.createExternalModel({n:1, d:1})  
+  console.log("\n-=< External trading for currency A >=-")
+  await coinA.createExternalModel({n:1, d:1})
+  console.log("\n-=< External trading for currency B >=-")
   await coinB.createExternalModel({n:1, d:10})
   
   // Add mutual trust between A and B currencies.
+  console.log("\n-=< Define trust between currencies A and B >=-")
   await coinA.addExternalTrust(coinB.external.publicKey(), "100")
   await coinB.addExternalTrust(coinA.external.publicKey(), "100")
 
   // Perform some payments between users of different currencies.
+  console.log("\n-=< Test external payments >=-")
   await testExternalPayments()
 }
 
@@ -58,7 +66,7 @@ async function createSponsorAccount() {
 async function createCurrencyModel(name: string) {
   const currency = new Currency(name, sponsor, server)
   await currency.createLocalModel()
-  
+
   // Create 2 test users.
   await currency.createUser()
   await currency.createUser()
@@ -178,6 +186,6 @@ async function userExternalPay(sender: Keypair, senderCoin: Currency, receiver: 
   transaction.sign(sponsor)
 
   await server.submitTransaction(transaction)
-  console.log(`Externally paid ${amount} ${coinB.asset.code} from ${sender.publicKey()} to ${receiver.publicKey()}.`)
+  console.log(`Externally paid ${amount} ${receiverCoin.asset.code} from ${sender.publicKey()} to ${receiver.publicKey()}.`)
 
 }
