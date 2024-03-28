@@ -7,7 +7,10 @@ yarn start
 ```
 
 ## Model definition
-This script uses [Stellar](https://stellar.org) testnet to create the accounts and assets in the Stellar network to model a set of local community currencies and accounts. Concretely:
+This script uses [Stellar](https://stellar.org) testnet to create the accounts and assets in the Stellar network to model a set of local community currencies and accounts. 
+<img src="./doc/komunitin-stellar-model.svg">
+
+Concretely:
 
 ### Global entities
  - Create a sponsoring account and fund it with XLM. Stellar operations for all other accounts will be [sponsored](https://developers.stellar.org/docs/learn/encyclopedia/sponsored-reserves) by this one.
