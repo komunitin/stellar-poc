@@ -59,7 +59,7 @@ External accounts allow trade between different local currencies by providing li
 
 ## Stellar features to be used
 There are some features that are not used in this proof of concept but will be used in the final implementation:
- - [Flags](https://developers.stellar.org/docs/glossary/flags/): Fine-tune the permissions of defined assets.
+ - [Flags](https://developers.stellar.org/docs/glossary/flags/): Fine-tune the attributes of defined assets.
  - [Account domains](https://developers.stellar.org/docs/glossary/account-domains/): Define the domain of issuing accounts.
  - [Path discovery](https://developers.stellar.org/network/horizon/aggregations/paths/strict-receive): Find path between asssets.
 
