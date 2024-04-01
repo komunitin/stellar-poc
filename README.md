@@ -39,12 +39,12 @@ External accounts allow trade between different local currencies by providing li
 
 ## Test transactions
 ### Local trade
- - Perform successful trades between users of the same currencies, signed by user account keys.
- - Perform successful trades between users of the same currencies, signed by currency admin key.
+ - Perform successful payments between users of the same currencies, signed by user account keys.
+ - Perform successful payments between users of the same currencies, signed by currency admin key.
 
 
 ### Global trade
- - Perform successful trades between users of different currencies.
+ - Perform successful payments between users of different currencies.
 
 ## Stellar features used
 - [Accounts](https://developers.stellar.org/docs/glossary/create-account-operation/)
